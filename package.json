@@ -14,7 +14,6 @@
   "author": "Jason Green",
   "license": "MIT",
   "devDependencies": {
-    "grunt-cli": "^0.1.13",
     "grunt": "^0.4.5",
     "browserify": "^4.1.11",
     "grunt-browserify": "^2.1.0",
