@@ -1,7 +1,6 @@
 'use strict';
 
-var config = require('./config')
-    , c = createjs;
+var c = createjs;
 
 console.log('Game Started: EaselJS version: ' + c.EaselJS.version);
 
