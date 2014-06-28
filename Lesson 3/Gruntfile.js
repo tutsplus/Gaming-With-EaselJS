@@ -34,6 +34,12 @@ module.exports = function(grunt) {
                 dest: 'build/css/',
                 expand: true,
                 flatten: true
+            },
+            images: {
+                expand: true,
+                dest: 'build/img/',
+                cwd: 'app/img/',
+                src: '**/*.*'
             }
         },
         connect: {
