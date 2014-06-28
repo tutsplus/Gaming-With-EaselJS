@@ -11,8 +11,8 @@ domReady(function init() {
     var stage = new c.Stage('main');
 
     var group = new c.Container();
-    group.x = 100; 
-    group.y = 100;
+    group.x = 200; 
+    group.y = 175;
     group.regX = 100;
     group.regY = 100;
     stage.addChild(group);
@@ -29,7 +29,13 @@ domReady(function init() {
     group.addChild(circle);
     
     var square = new c.Shape();
-    square.graphics.beginFill('green').drawRect(0, 0, 50, 50);
+    square.graphics.beginFill('green')
+                   .drawRect(0, 0, 50, 50)
+                   .endFill()
+                   .beginStroke("rgba(0,0,0,1)")
+                   .moveTo(5, 75)
+                   .bezierCurveTo(45, 90, 75, 75, -25, -25)
+                   .endStroke();
     square.x = 200;
     square.y = 100;
     group.addChild(square);
@@ -44,7 +50,7 @@ domReady(function init() {
     ship.y = 100;
     group.addChild(ship);
 
-    var introText = new c.Text('Hey, welcome to the game.', '20px Arial', '#ff7700');
+    var introText = new c.Text('Welcome to the game.', '20px Arial', '#ff7700');
     introText.x = 200;
     introText.y = 300;
     introText.lineWidth = 100;
@@ -57,6 +63,4 @@ domReady(function init() {
             delta: event.delta
         });
     });
-
-    //display object, shape, bitmap and text
 });
