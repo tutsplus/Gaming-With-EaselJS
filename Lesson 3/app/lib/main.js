@@ -1,6 +1,6 @@
 'use strict';
 
-var domReady = require('./util').domReady;
+var domReady = require('./util/dom_ready');
 
 var c = createjs;
 
