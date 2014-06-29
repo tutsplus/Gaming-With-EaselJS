@@ -21,6 +21,13 @@ function Hero$initialize(name, x, y) {
 }
 
 
+function setupDisplay() {
+    this.body = new createjs.Shape();
+    this.body.graphics.beginFill('green').drawRect(0, 0, 50, 50);
+    this.addChild(this.body);
+}
+
+
 function setupListeners() {
     this.on('tick', onTick);
     this.on('click', onClick);
@@ -34,13 +41,6 @@ function onTick(event) {
 
 function onClick(event) {
     console.log(this.name, this);
-}
-
-
-function setupDisplay() {
-    this.body = new createjs.Shape();
-    this.body.graphics.beginFill('green').drawRect(0, 0, 50, 50);
-    this.addChild(this.body);
 }
 
 
