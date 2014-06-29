@@ -1,18 +1,16 @@
 'use strict';
 
 var createSubClass = require('./util/create_subclass')
-    , Shape = createjs.Shape;
+    , Tile = require('./Tile');
 
 
-module.exports = createSubClass(Shape, 'Box', {
+module.exports = createSubClass(Tile, 'Box', {
     initialize: Box$initialize
 });
 
 
 function Box$initialize(x, y) {
-    Shape.prototype.initialize.apply(this, null, x, y);
-    this.x = x;
-    this.y = y;
+    Tile.prototype.initialize.apply(this, arguments);
     this.name = 'box';
 
     this.graphics.beginFill('red').drawRect(0, 0, 50, 50);

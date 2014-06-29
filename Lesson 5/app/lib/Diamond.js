@@ -1,18 +1,16 @@
 'use strict';
 
 var createSubClass = require('./util/create_subclass')
-    , Shape = createjs.Shape;
+    , Tile = require('./Tile');
 
 
-module.exports = createSubClass(Shape, 'Diamond', {
+module.exports = createSubClass(Tile, 'Diamond', {
     initialize: Diamond$initialize
 });
 
 
 function Diamond$initialize(x, y) {
-    Shape.prototype.initialize.apply(this, null, x, y);
-    this.x = x;
-    this.y = y;
+    Tile.prototype.initialize.apply(this, arguments);
     this.regX = -25;
     this.regY = -25;
     this.name = 'diamond';

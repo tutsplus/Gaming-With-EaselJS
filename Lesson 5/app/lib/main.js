@@ -35,10 +35,18 @@ function prepareWorld() {
         row.forEach(function (tile, indexX) {
             var TileClass = classMap[tile];
             if (TileClass) {
-                var newTile = new TileClass(indexX*50, indexY*50);
+                var newTile = new TileClass(indexX, indexY);
                 stage.addChild(newTile);
+                row[indexX] = newTile;
             }
         });
+    });
+
+    //window.testMap = map;
+    //testMap[3][6].move(2,2);
+
+    window.addEventListener('keydown', function(event) {
+        console.log('wef')
     });
 
     return stage;
