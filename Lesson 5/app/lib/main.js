@@ -15,51 +15,37 @@ var classMap = {
 };
 
 var c = createjs
-    , stage;
+    , stage
+    , mapGroup;
 
 console.log('Game Started: EaselJS version: ' + c.EaselJS.version);
 
 
 domReady(function init() {
-    var stage = prepareWorld();
-    prepareTick(stage);
+    prepareWorld();
+    stage.update();
 });
 
 
 function prepareWorld() {
     stage = new c.Stage('main');
+    mapGroup = new c.Container();
+    mapGroup.x = 50;
+    mapGroup.y = 50;
+    stage.addChild(mapGroup);
 
     var map = levels[0].map;
+    var tiles = [];
 
     map.forEach(function (row, indexY) {
+        tiles.push([]);
         row.forEach(function (tile, indexX) {
             var TileClass = classMap[tile];
             if (TileClass) {
                 var newTile = new TileClass(indexX, indexY);
-                stage.addChild(newTile);
-                row[indexX] = newTile;
+                mapGroup.addChild(newTile);
+                tiles[indexY][indexX] = newTile;
             }
         });
     });
-
-    //window.testMap = map;
-    //testMap[3][6].move(2,2);
-
-    window.addEventListener('keydown', function(event) {
-        console.log('wef')
-    });
-
-    return stage;
-}
-
-
-function prepareTick(stage) {
-    c.Ticker.timingMode = c.Ticker.RAF;
-    c.Ticker.setFPS(10);
-    c.Ticker.addEventListener('tick', onTick);
-}
-
-
-function onTick(event) {
-    stage.update();
 }
