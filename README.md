@@ -3,6 +3,14 @@
 ### Install ###
 Install node, npm, bower, and grunt.
 
-run bower install, npm install, and grunt
+```
+bower install
+npm install
+```
 
-navigate to localhost:9001
+### Run ###
+```
+grunt
+```
+
+navigate to localhost:9001 in a modern browser
