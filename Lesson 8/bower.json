@@ -1,0 +1,20 @@
+{
+  "name": "tutsplus-advanced-canvas",
+  "version": "0.0.0",
+  "authors": [
+    "Jason Green <jasoniangreen@gmail.com>"
+  ],
+  "description": "Tuts plus lesson files for advanced canvas course",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "easeljs": "*"
+  }
+}
