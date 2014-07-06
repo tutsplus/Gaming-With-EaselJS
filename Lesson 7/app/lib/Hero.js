@@ -26,6 +26,6 @@ function Hero$initialize(x, y) {
 function onTick(event) {
     var actions = actionService.get();
 
-    if (actions.rightkey) this.x++;
-    if (actions.leftkey) this.x--;
+    if (actions.moveright) this.x++;
+    if (actions.moveleft) this.x--;
 }

@@ -2,7 +2,7 @@
 
 var domReady = require('./util').domReady
     , Hero = require('./Hero')
-    , actions = require('./actions');
+    , actionsService = require('./actions');
 
 var c = createjs
     , hero
@@ -10,7 +10,7 @@ var c = createjs
 
 
 domReady(function init() {
-    actions.init(window);
+    actionsService.init(window);
     prepareWorld();
     c.Ticker.addEventListener('tick', function() {
         stage.update();

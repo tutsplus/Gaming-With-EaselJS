@@ -4,11 +4,11 @@ var EventDispatcher = createjs.EventDispatcher
     , EaselEvent = createjs.Event;
 
 var controls = {
-    37: 'leftkey',
-    39: 'rightkey',
-    38: 'upkey',
-    40: 'downkey',
-    32: 'fire1key'
+    37: 'moveleft',
+    39: 'moveright',
+    38: 'moveup',
+    40: 'movedown',
+    32: 'fire1'
 };
 
 var currentActions = {};
