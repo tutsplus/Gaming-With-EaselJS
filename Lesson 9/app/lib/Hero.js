@@ -53,6 +53,25 @@ function onTick(event) {
 
     this.vX = this.vX * INERTIA;
     this.vY = this.vY * INERTIA;
+
+    _mouseLook.call(this);
+
+
+    //var angle = Math.atan2(e.pageX- boxCenter[0], - (e.pageY- boxCenter[1]) )*(180/Math.PI);        
+
+}
+
+
+function _mouseLook() {
+    var x1 = this.x
+        , y1 = this.y
+        , x2 = this.lookX
+        , y2 = this.lookY;
+
+    var angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI) + 90;
+    //console.log('angle', angle);
+
+    this.rotation = angle;
 }
 
 
@@ -66,6 +85,8 @@ function _prepareProperties(x, y) {
     this.vY = 0;
     this.x = x;
     this.y = y;
+    this.lookX = 0;
+    this.lookY = 0;
 }
 
 
@@ -87,5 +108,10 @@ function _processActions() {
             if (keyAction)
                 this[keyAction.property] = keyAction.value;
         } 
+    }
+
+    if (actions.mouse) {
+        this.lookX = actions.mouse.stageX;
+        this.lookY = actions.mouse.stageY;
     }
 }
