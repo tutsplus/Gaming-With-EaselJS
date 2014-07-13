@@ -55,10 +55,6 @@ function onTick(event) {
     this.vY = this.vY * INERTIA;
 
     _mouseLook.call(this);
-
-
-    //var angle = Math.atan2(e.pageX- boxCenter[0], - (e.pageY- boxCenter[1]) )*(180/Math.PI);        
-
 }
 
 
