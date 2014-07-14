@@ -5,16 +5,16 @@ var createSubClass = require('./util/create_subclass')
     , Container = createjs.Container;
 
 var keyActions = {
-    'moveleft':  {property: 'rotDir', value: -1},
-    'moveright': {property: 'rotDir', value:  1},
-    'moveup':    {property: 'direction', value: -1},
-    'movedown':  {property: 'direction', value:  0.5}
+    'moveleft':  { property: 'heading', value: -1 },
+    'moveright': { property: 'heading', value:  1 },
+    'moveup':    { property: 'thrust', value: -1 },
+    'movedown':  { property: 'thrust', value:  0.5 }
 };
 
-var SPEED = 15
-    , ROT_SPEED = 10
-    , FRICTION = 0.85
-    , ROT_FRICTION = 0.8;
+var SPEED = 3
+    , ROT_SPEED = 3.8
+    , INERTIA = 0.88
+    , ROT_INERTIA = 0.8;
 
 
 module.exports = createSubClass(Container, 'Hero', {
@@ -34,33 +34,36 @@ function Hero$initialize(x, y) {
 
 
 function onTick(event) {
-    var actions = actionService.get();
+    this.rotation += this.vRot * ROT_SPEED; 
+    this.y += this.vY;    
+    this.x += this.vX;  
 
-    _processActions.call(this, actions);
-    
-    this.rotDir = this.rotDir * ROT_FRICTION;
-    if (Math.abs(this.rotDir) < 0.1) this.rotDir = 0;
-    var rotV = this.rotDir * ROT_SPEED;
+    _processActions.call(this);
 
-    this.direction = this.direction * FRICTION;
-    if (Math.abs(this.direction) < 0.1) this.direction = 0;
-    var dirV = this.direction * SPEED;
+    this.vRot += this.heading;
+    this.vRot = this.vRot * ROT_INERTIA;
 
-    this.rotation += rotV;
+    var ratioX = Math.sin((this.rotation) * Math.PI / -180) * this.thrust;
+    var ratioY = Math.cos((this.rotation) * Math.PI / -180) * this.thrust;
+    var diffX = ratioX * SPEED;
+    var diffY = ratioY * SPEED;    
 
-    var xVel = Math.cos((this.rotation + 90) * Math.PI / 180);
-    var yVel = Math.sin((this.rotation + 90) * Math.PI / 180);
+    this.vX += diffX;
+    this.vY += diffY;
 
-    this.x += xVel * dirV;
-    this.y += yVel * dirV;
+    this.vX = this.vX * INERTIA;
+    this.vY = this.vY * INERTIA;
 }
 
 
 function _prepareProperties(x, y) {
     this.name = 'hero';
-    this.rotDir = 0;
-    this.direction = 0;
+    this.thrust = 0;
+    this.heading = 0;
     this.rotation = 0;
+    this.vRot = 0;
+    this.vX = 0;
+    this.vY = 0;
     this.x = x;
     this.y = y;
 }
@@ -73,7 +76,11 @@ function _prepareBody() {
 }
 
 
-function _processActions(actions) {
+function _processActions() {
+    var actions = actionService.get()
+    this.thrust = 0;
+    this.heading = 0;
+
     for (var key in actions) {
         if (actions.hasOwnProperty(key)) {
             var keyAction = keyActions[key];

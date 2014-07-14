@@ -66,12 +66,15 @@ function _prepareProperties(x, y) {
     this.vY = 0;
     this.x = x;
     this.y = y;
+    this.lookX = 0;
+    this.lookY = 0;
 }
 
 
 function _prepareBody() {
-    this.body = new createjs.Shape();
-    this.body.graphics.beginFill('black').drawRect(-25, -25, 50, 50);
+    this.body = new createjs.Bitmap('img/hero.png');
+    this.body.x = -50;
+    this.body.y = -37;
     this.addChild(this.body);
 }
 

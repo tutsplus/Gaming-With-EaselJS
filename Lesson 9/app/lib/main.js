@@ -6,7 +6,6 @@ var domReady = require('./util').domReady
 
 var c = createjs
     , hero
-    , hero2
     , stage;
 
 
@@ -24,5 +23,4 @@ domReady(function init() {
 function prepareWorld() {
     hero = new Hero(100, 100);
     stage.addChild(hero);
-    stage.addChild(hero2);
 }
