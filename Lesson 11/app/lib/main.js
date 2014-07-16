@@ -2,7 +2,8 @@
 
 var domReady = require('./util').domReady
     , Hero = require('./Hero')
-    , actionService = require('./actions');
+    , actionService = require('./actions')
+    , collisionService = require('./collisions');
 
 var _W = 500
     , _H = 700
@@ -24,6 +25,7 @@ domReady(function init() {
     prepareWorld();
 
     c.Ticker.addEventListener('tick', function() {
+        // update collisions
         cameraMove();
         updateBackground();
         stage.update();
