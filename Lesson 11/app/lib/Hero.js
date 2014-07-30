@@ -2,6 +2,7 @@
 
 var createSubClass = require('./util/create_subclass')
     , actionService = require('./actions')
+    , collisionService = require('./collisions')
     , Container = createjs.Container;
 
 var keyActions = {
@@ -16,9 +17,9 @@ var SPEED = 3
     , INERTIA = 0.88
     , ROT_INERTIA = 0.8;
 
-
 module.exports = createSubClass(Container, 'Hero', {
-    initialize: Hero$initialize
+    initialize: Hero$initialize,
+    takeDamage: Hero$takeDamage
 });
 
 
@@ -28,8 +29,22 @@ function Hero$initialize(x, y) {
     _prepareProperties.call(this, x, y);
     _prepareBody.call(this);
 
+    collisionService.addActor(this, 'circle', {radius: 40});
     this.on('tick', onTick);
+    this.on('collision', onCollision);
     actionService.addEventListener('fire1', function(e){console.log(e)});
+}
+
+
+function Hero$takeDamage(damage) {
+    this.alpha = 0.5;
+    this.health -= damage;
+    console.log('Health now at: ' + this.health);
+
+    var self = this;
+    setTimeout(function() {
+        self.alpha = 1;
+    }, 2000);
 }
 
 
@@ -56,6 +71,14 @@ function onTick(event) {
 }
 
 
+function onCollision(event) {
+    var other = event.data.other;
+    if (other.name == 'meteor') {
+        this.takeDamage(20);
+    }
+}
+
+
 function _prepareProperties(x, y) {
     this.name = 'hero';
     this.thrust = 0;
@@ -68,6 +91,7 @@ function _prepareProperties(x, y) {
     this.y = y;
     this.lookX = 0;
     this.lookY = 0;
+    this.health = 100;
 }
 
 

@@ -1,34 +1,79 @@
 'use strict';
 
+var EaselEvent = createjs.Event;
+
 
 var actors = []
-    , colliders = []
-    , currentCollisions = [];
+    , colliders = [];
 
 actors.name = 'actors array';
-actors.name = 'colliders array';
+colliders.name = 'colliders array';
 
 
-module.exports = window.collisions = {
-    addActor: collisions_add.bind(actors),
-    removeActor: collisions_remove.bind(actors),
-    addCollider: collisions_add.bind(colliders),
-    removeCollider: collisions_remove.bind(colliders)
+module.exports = {
+    addActor: collection_add.bind(actors),
+    removeActor: collection_remove.bind(actors),
+    addCollider: collection_add.bind(colliders),
+    removeCollider: collection_remove.bind(colliders),
+    broadcastCollisions: broadcastCollisions
 };
 
 
-function collisions_add(obj) {
+function collection_add(obj, type, options) {
     var index = this.indexOf(obj);
 
     if (index !== -1) return console.warn('collisions: object already registered for collisions', this);
-    return actors.push(obj);
+    obj._collisionInfo = {
+        type: type,
+        options: options
+    }
+    return this.push(obj);
 }
 
 
-function collisions_remove(obj) {
+function collection_remove(obj) {
     var index = this.indexOf(obj);
 
     if (index === -1) return console.warn('collisions: object not registered for collisions', this);
+    delete obj._collisionInfo;
     return this.splice(index, 1);
+}
+
+
+function broadcastCollisions() {
+    var collisions = [];
+    actors.forEach(function(obj1) {
+        actors.forEach(function(obj2) {
+            var obj1Info = obj1._collisionInfo;
+            var obj2Info = obj2._collisionInfo;
+
+            if (obj1 != obj2) {
+                if (obj1Info.type == 'circle' && obj2Info.type == 'circle') {
+                    var dist = obj1Info.options.radius + obj2Info.options.radius;
+                    if (dist > _distanceBetween(obj1, obj2)) {
+                        var collisionEvent = new EaselEvent('collision');
+                        collisionEvent.data = {
+                            self: obj1,
+                            other: obj2
+                        };
+                        collisions.push({
+                            target: obj1,
+                            event: collisionEvent
+                        });
+                        //obj1.dispatchEvent(collisionEvent);
+                    }
+                }
+            }
+        });
+    });
+
+    collisions.forEach(function(info) {
+        info.target.dispatchEvent(info.event);
+    });
+}
+
+function _distanceBetween(obj1, obj2) {
+    return Math.sqrt(Math.pow(obj1.x - obj2.x, 2) 
+                        + Math.pow(obj1.y - obj2.y, 2));
 }
 
