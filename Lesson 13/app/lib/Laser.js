@@ -4,7 +4,7 @@ var createSubClass = require('./util/create_subclass')
     , collisionService = require('./collisions')
     , Container = createjs.Container;
 
-var BULLET_SPEED = 25
+var BULLET_SPEED = 35
     , BULLET_LIFE_TIME = 20;
 
 module.exports = createSubClass(Container, 'Laser', {

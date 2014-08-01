@@ -19,18 +19,20 @@ function Meteor$initialize(x, y) {
     this.y = y;
 
     this.body = new createjs.Bitmap('img/meteor.png');
-    this.body.x = -22;
-    this.body.y = -22;
+    this.body.x = -49;
+    this.body.y = -48;
     this.addChild(this.body);
 
-    collisionService.addActor(this, 'circle', {radius: 22});
+    collisionService.addActor(this, 'circle', {radius: 48});
     this.on('collision', onCollision);
 }
 
 
 function Meteor$destroy() {
-    collisionService.removeActor(this);
-    this.parent.removeChild(this);
+    if (this.parent) {
+        collisionService.removeActor(this);
+        this.parent.removeChild(this);
+    }
 }
 
 

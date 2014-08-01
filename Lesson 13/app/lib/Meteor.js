@@ -6,7 +6,9 @@ var createSubClass = require('./util/create_subclass')
 
 
 module.exports = createSubClass(Container, 'Meteor', {
-    initialize: Meteor$initialize
+    initialize: Meteor$initialize,
+    destroy: Meteor$destroy,
+    isDestroyed: Meteor$isDestroyed
 });
 
 
@@ -16,6 +18,7 @@ function Meteor$initialize(x, y) {
     this.name = 'meteor';
     this.x = x;
     this.y = y;
+    this._destroyed = false;
 
     this.body = new createjs.Bitmap('img/meteor.png');
     this.body.x = -49;
@@ -27,10 +30,26 @@ function Meteor$initialize(x, y) {
 }
 
 
+function Meteor$destroy() {
+    if (this.parent) {
+        collisionService.removeActor(this);
+        this.parent.removeChild(this);
+        this._destroyed = true;
+    }
+}
+
+
+function Meteor$isDestroyed() {
+    return this._destroyed;
+}
+
+
 function onCollision(event) {
     var other = event.data.other;
     if (other.name == 'hero') {
-        collisionService.removeActor(this);
-        this.parent.removeChild(this);
+        this.destroy();
+    } else if (other.name == 'laser') {
+        //send out message to update score
+        this.destroy();
     }
 }
