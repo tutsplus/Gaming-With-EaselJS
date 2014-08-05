@@ -18,6 +18,13 @@ function Meteor$initialize(x, y) {
     this.name = 'meteor';
     this.x = x;
     this.y = y;
+    this.rotation = Math.random()*360;
+    
+    this.direction = Math.random()*360;
+    this.velocity = Math.random()*8 + 2;
+    this.speedX = Math.sin((this.direction) * Math.PI / -180);
+    this.speedY = Math.cos((this.direction) * Math.PI / -180);
+
 
     this.body = new createjs.Bitmap('img/meteor.png');
     this.body.x = -49;
@@ -26,6 +33,7 @@ function Meteor$initialize(x, y) {
 
     collisionService.addActor(this, 'circle', {radius: 48});
     this.on('collision', onCollision);
+    this.on('tick', onTick);
 }
 
 
@@ -40,6 +48,12 @@ function Meteor$destroy() {
 
 function Meteor$isDestroyed() {
     return this._destroyed;
+}
+
+
+function onTick() {
+    this.x -= this.speedX * this.velocity;
+    this.y -= this.speedY * this.velocity;
 }
 
 
