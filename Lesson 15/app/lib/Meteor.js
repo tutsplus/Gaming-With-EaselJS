@@ -2,6 +2,7 @@
 
 var createSubClass = require('./util/create_subclass')
     , collisionService = require('./collisions')
+    , hudService = require('./hud')
     , Container = createjs.Container;
 
 
@@ -38,6 +39,10 @@ function Meteor$initialize(x, y) {
 
 function Meteor$destroy() {
     if (this.parent) {
+        hudService.dispatchEvent({
+            type: 'update', 
+            data: { property: 'score', value: 10}
+        });
         collisionService.removeActor(this);
         this.parent.removeChild(this);
         this._destroyed = true;

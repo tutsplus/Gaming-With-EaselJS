@@ -1,7 +1,5 @@
 'use strict';
 
-// You can use what you learnt in previous lessons to progress and win levels.
-
 var A = require('./wave_a')
     , B = require('./wave_b')
     , H = require('./home');
