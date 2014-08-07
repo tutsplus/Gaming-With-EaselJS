@@ -10,7 +10,6 @@ var width, height, hud;
 var isDirty = false;
 var texts = {};
 var values = {
-    header: 'SPACE SHOOTER',
     health: 100,
     score: 0
 };
@@ -80,19 +79,30 @@ function onTick() {
 function createHud() {
     var newHud = new c.Container(0, 0);
     
-    texts.header = new c.Text(values.header, '16px Arial', '#CCC');
-    texts.header.x = width/2 - texts.header.getMeasuredWidth()/2;
-    texts.header.y = 8;
-    newHud.addChild(texts.header);
+    var header = new c.Text('SPACE SHOOTER', '16px Arial', '#CCC');
+    header.x = width/2 - header.getMeasuredWidth()/2;
+    header.y = 8;
+    newHud.addChild(header);
 
-    texts.score = new c.Text('SCORE: ' + values.score, '16px Arial', '#CCC');
-    texts.score.x = width - texts.score.getMeasuredWidth() - 20;
-    texts.score.y = 8;
+    var scoreLabel = new c.Text('SCORE', '16px Arial', '#CCC');
+    scoreLabel.x = width - scoreLabel.getMeasuredWidth() - 20;
+    scoreLabel.y = 8;
+    newHud.addChild(scoreLabel);
+
+    var healthLabel = new c.Text('HEALTH', '16px Arial', '#CCC');
+    healthLabel.x = 20;
+    healthLabel.y = 8;
+    newHud.addChild(healthLabel);
+
+    texts.score = new c.Text(values.score, '16px Arial', '#CCC');
+    texts.score.textAlign = 'right';
+    texts.score.x = width - texts.score.getMeasuredWidth() - 12;
+    texts.score.y = 24;
     newHud.addChild(texts.score);
 
-    texts.health = new c.Text('HEALTH: ' + values.health, '16px Arial', '#CCC');
+    texts.health = new c.Text(values.health, '16px Arial', '#CCC');
     texts.health.x = 20;
-    texts.health.y = 8;
+    texts.health.y = 24;
     newHud.addChild(texts.health);
 
     return newHud;
