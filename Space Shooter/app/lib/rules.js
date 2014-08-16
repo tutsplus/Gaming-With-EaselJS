@@ -2,27 +2,35 @@
 
 module.exports = {
     collisions: {
-        meteor: {
-            hero: destroy,
-            laser: destroy
-        },
-        hero: {
-            meteor: takeDamage,
-            enemy: takeDamage,
-            modifier: applyModifier
-        },
-        laser: {
-            meteor: destroy,
-            enemy: destroy
-        },
-        enemy: {
-            laser: takeDamage,
-            hero: takeDamage
-        },
-        modifier: {
-            hero: destroy
-        }
+        other:    [   'meteor',     'hero',    'laser',    'enemy', 'modifier' ],
+        meteor:   [           ,    destroy,    destroy,           ,            ],
+        hero:     [ takeDamage,           ,           , takeDamage,      apply ],
+        enemy:    [           , takeDamage, takeDamage,           ,            ],
+        modifier: [           ,    destroy,           ,           ,            ]
     },
+
+    // collisions: {
+    //     meteor: {
+    //         hero: destroy,
+    //         laser: destroy
+    //     },
+    //     hero: {
+    //         meteor: takeDamage,
+    //         enemy: takeDamage,
+    //         modifier: applyModifier
+    //     },
+    //     laser: {
+    //         meteor: destroy,
+    //         enemy: destroy
+    //     },
+    //     enemy: {
+    //         laser: takeDamage,
+    //         hero: takeDamage
+    //     },
+    //     modifier: {
+    //         hero: destroy
+    //     }
+    // },
     destroyed: {
         meteor: addPoints,
         hero: resetGame,

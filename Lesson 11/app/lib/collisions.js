@@ -3,40 +3,34 @@
 var EaselEvent = createjs.Event;
 
 
-var actors = []
-    , colliders = [];
-
-actors.name = 'actors array';
-colliders.name = 'colliders array';
+var actors = [];
 
 
 module.exports = {
-    addActor: collection_add.bind(actors),
-    removeActor: collection_remove.bind(actors),
-    addCollider: collection_add.bind(colliders),
-    removeCollider: collection_remove.bind(colliders),
+    addActor: addActor,
+    removeActor: removeActor,
     broadcastCollisions: broadcastCollisions
 };
 
 
-function collection_add(obj, type, options) {
-    var index = this.indexOf(obj);
+function addActor(obj, type, options) {
+    var index = actors.indexOf(obj);
 
-    if (index !== -1) return console.warn('collisions: object already registered for collisions', this);
+    if (index !== -1) return console.warn('collisions: object already registered for collisions', actors);
     obj._collisionInfo = {
         type: type,
         options: options
     }
-    return this.push(obj);
+    return actors.push(obj);
 }
 
 
-function collection_remove(obj) {
-    var index = this.indexOf(obj);
+function removeActor(obj) {
+    var index = actors.indexOf(obj);
 
-    if (index === -1) return console.warn('collisions: object not registered for collisions', this);
+    if (index === -1) return console.warn('collisions: object not registered for collisions', actors);
     delete obj._collisionInfo;
-    return this.splice(index, 1);
+    return actors.splice(index, 1);
 }
 
 

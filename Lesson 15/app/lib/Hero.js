@@ -89,8 +89,8 @@ function onCollision(event) {
     if (other.name == 'meteor') {
         this.takeDamage(20);
         hudService.dispatchEvent({
-            type: 'update', 
-            data: { property: 'health', value: -20}
+            type: 'set', 
+            data: { property: 'health', value: this.health}
         });
     }
 }

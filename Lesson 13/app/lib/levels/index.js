@@ -8,7 +8,7 @@ var A = require('./wave_a')
 
 module.exports = [
     {
-        name: 'Gamma Quadrant',
+        name: 'Idiran Space',
         cellWidth: 500,
         cellHeight: 500,
         data: [
@@ -22,7 +22,7 @@ module.exports = [
         ]
     },
     {
-        name: 'Delta Quadrant',
+        name: 'The Affront',
         cellWidth: 500,
         cellHeight: 500,
         data: [
