@@ -1,14 +1,22 @@
-# README #
+Gaming with EaselJs
+
 
 ### Install ###
-Install node, npm, bower, and grunt.
+Install node and npm.
 
+Then;
+```
+npm install -g bower
+npm install -g grunt
+```
+Then from the specific lesson folder you want to run
 ```
 bower install
 npm install
 ```
 
 ### Run ###
+Also from the lesson folder
 ```
 grunt
 ```
