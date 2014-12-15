@@ -28,3 +28,12 @@ grunt
 ```
 
 navigate to localhost:9001 in a modern browser
+
+### Temporary fix for Easel version issue ###
+I should have locked down the version of easel in the package.json file. At the moment the version is `"*"` but it should have been a specific number. For now, you can fix the problem by pointing `grunt copy` to the right version number.
+
+Goto `Gruntfile.js` and change `line 16` to `'bower_components/easeljs/lib/easeljs-0.8.0.combined.js'` (or which ever version is being loaded into `bower_components`.
+
+Then goto `app/index.html` and change `line 11` to `<script src="scripts/easeljs-0.8.0.combined.js"></script>`
+
+I will try to fix the issue soon.
